@@ -8,7 +8,7 @@ load_dotenv()
 def conectar():
     conexion = pymysql.connect(
         host=os.getenv('DB_HOST','localhost'),
-        port=int(os.getenv('DB_PORT','3306')),
+        port=int(os.getenv('DB_PORT','3307')),
         user=os.environ['DB_USER'],
         password=os.environ['DB_PASSWORD'],
         database=os.getenv('DB_NAME','tienda_adso'),
