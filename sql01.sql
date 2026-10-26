@@ -21,3 +21,15 @@ CREATE TABLE IF NOT EXISTS pedidos (
  total DECIMAL(12,2) NOT NULL DEFAULT 0,
  CONSTRAINT fk_pedido_cliente FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 ) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS detalle_pedidos (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ pedido_id INT NOT NULL,
+ producto_id INT NOT NULL,
+ cantidad INT NOT NULL CHECK (cantidad > 0),
+ precio_unitario DECIMAL(12,2) NOT NULL,
+ subtotal DECIMAL(12,2) NOT NULL,
+ FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+ FOREIGN KEY (producto_id) REFERENCES productos(id)
+) ENGINE=InnoDB;
