@@ -1,11 +1,15 @@
 from fastapi import FastAPI
-from app.routers import clientes, productos, pedidos
- 
-app = FastAPI(title='Taller 3 ADSO - Tienda', version='3.0', description='API relacional: clientes, productos, pedidos y detalles')
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from app.routers import clientes, productos, pedidos, reportes
+
+app = FastAPI(title="Tienda ADSO")
+
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
 app.include_router(clientes.router)
 app.include_router(productos.router)
 app.include_router(pedidos.router)
- 
-@app.get('/', tags=['Inicio'])
-def inicio():
-    return {'mensaje': 'API tienda ADSO', 'documentacion': '/docs'}
+app.include_router(reportes.router)
+
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
